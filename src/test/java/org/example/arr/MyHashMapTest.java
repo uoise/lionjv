@@ -15,14 +15,14 @@ class MyHashMapTest {
 
     @Test
     void testPut() {
-        assertEquals(1, map.put("Key1", 1));
+        assertEquals(null, map.put("Key1", 1));
         assertEquals(1, map.size());
     }
 
     @Test
     void testPutReplace() {
         map.put("Key1", 1);
-        assertEquals(Integer.valueOf(2), map.put("Key1", 2));
+        assertEquals(Integer.valueOf(1), map.put("Key1", 2));
         assertEquals(1, map.size());
     }
 

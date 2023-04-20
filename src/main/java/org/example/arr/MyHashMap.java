@@ -47,8 +47,11 @@ public class MyHashMap<K, V> {
 
     public V put(K key, V value) {
         int idx = getIndex(key);
+        V ret = null;
         if (idx == -1) idx = setIndex(key);
-        return add(idx, value);
+        ret = values[idx];
+        add(idx, value);
+        return ret;
     }
 
 
