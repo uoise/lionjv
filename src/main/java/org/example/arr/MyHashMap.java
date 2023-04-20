@@ -22,22 +22,22 @@ public class MyHashMap<K, V> {
         return IntStream.range(0, hashIndexes.length).filter(i -> hashIndexes[i] != null && hashIndexes[i] == hash).findFirst().orElse(-1);
     }
 
+    private boolean alloc() {
+        V[] newValues = (V[]) new Object[values.length + 1];
+        System.arraycopy(values, 0, newValues, 0, values.length);
+        values = newValues;
+
+        Integer[] newHashIndexes = new Integer[hashIndexes.length + 1];
+        System.arraycopy(hashIndexes, 0, newHashIndexes, 0, hashIndexes.length);
+        hashIndexes = newHashIndexes;
+        return true;
+    }
+
     private int setIndex(K key) {
         int hash = getHash(key);
-        int idx = IntStream.range(0, hashIndexes.length).filter(i -> hashIndexes[i] == null).findFirst().orElse(-1);
-        if (idx == -1) {
-            V[] newValues = (V[]) new Object[values.length + 1];
-            System.arraycopy(values, 0, newValues, 0, values.length);
-            values = newValues;
-
-            Integer[] newHashIndexes = new Integer[hashIndexes.length + 1];
-            System.arraycopy(hashIndexes, 0, newHashIndexes, 0, hashIndexes.length);
-            hashIndexes = newHashIndexes;
-
-            idx = values.length - 1;
-        }
+        int idx = IntStream.range(0, hashIndexes.length).filter(i -> hashIndexes[i] == null).findFirst().orElse(hashIndexes.length);
+        if (idx == hashIndexes.length) alloc();
         hashIndexes[idx] = hash;
-
         return idx;
     }
 
