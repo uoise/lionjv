@@ -3,8 +3,6 @@ package org.example.arr;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyHashMapTest {
@@ -17,14 +15,14 @@ class MyHashMapTest {
 
     @Test
     void testPut() {
-        map.put("Key1", 1);
+        assertEquals(1, map.put("Key1", 1));
         assertEquals(1, map.size());
     }
 
     @Test
     void testPutReplace() {
         map.put("Key1", 1);
-        assertEquals(Integer.valueOf(1), map.put("Key1", 2));
+        assertEquals(Integer.valueOf(2), map.put("Key1", 2));
         assertEquals(1, map.size());
     }
 

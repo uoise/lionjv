@@ -1,6 +1,5 @@
 package org.example.arr;
 
-
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.IntStream;
@@ -43,8 +42,7 @@ public class MyHashMap<K, V> {
     }
 
     private V add(int idx, V value) {
-        if (values[idx] == null) values[idx] = value;
-        return values[idx];
+        return values[idx] = value;
     }
 
     public V put(K key, V value) {
@@ -55,7 +53,7 @@ public class MyHashMap<K, V> {
 
 
     public int size() {
-        return (int) Arrays.stream(hashIndexes).filter(i -> i != null).count();
+        return (int) Arrays.stream(hashIndexes).filter(Objects::nonNull).count();
     }
 
     public V get(K key) {
@@ -86,6 +84,6 @@ public class MyHashMap<K, V> {
     }
 
     public boolean isEmpty() {
-        return Arrays.stream(hashIndexes).filter(i -> i != null).count() == 0;
+        return Arrays.stream(hashIndexes).noneMatch(Objects::nonNull);
     }
 }
